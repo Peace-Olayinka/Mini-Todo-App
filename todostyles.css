@@ -1,0 +1,44 @@
+#btn1{
+    margin-left: -2.7em;
+}
+#yellowbtn{
+    background-color: goldenrod;
+    border: 1px solid goldenrod;
+    font-weight: bold;
+    padding: auto;
+}
+
+#redbtn{
+    background-color: brown;
+    color: white;
+    border: none;
+    border: 1px solid brown;
+    font-weight: bold;
+    
+}
+#tab{
+    color: navy;
+    margin: auto;
+    border: 1px solid navy;
+    border-collapse: separate;
+    width: 60%;
+}
+@media screen and (max-width:900px) {
+    #tab{
+        max-width: 90% !important;
+        font-size: small !important;
+    }
+}
+#thd{
+    border: 1px solid navy;
+    border-collapse: separate;
+}
+#tee{
+    border: 1px solid navy;
+    border-collapse: separate;
+    color: blue;
+}
+td{
+    text-transform: capitalize;
+}
+

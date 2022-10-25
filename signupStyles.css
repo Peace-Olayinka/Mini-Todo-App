@@ -1,0 +1,54 @@
+#mybox{
+    width: 25%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    border-top: 2px solid black;
+    border-left: 2px solid black;
+    box-shadow: 10px 10px 10px black;  
+}
+@media screen and (max-width:800px) {
+    div{
+        width: 85% !important
+    }
+} 
+table{
+    margin: auto;
+}
+
+#editbtn{
+    background: goldenrod;
+    border: none;
+}
+#delbtn{
+    background: brown;
+    color: white;
+    border: none;
+}
+#dashbdbtn{
+    background: lightseagreen;
+    color: white;
+    border: none;
+}
+
+#newInfo{
+    width: 25%;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 1em; 
+    visibility: hidden;
+}
+#newbtn{
+    background-color: blue;
+    color: white;
+    border-radius: 10px;
+    margin-top: 1em;
+}
+
