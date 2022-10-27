@@ -81,7 +81,7 @@ function editTodo(index) {
 }
 
 function markTodo(index) {
-    alert('sure?')
+    alert('Are you sure ypu have completed this task and ready to mark as done?')
     mySchedule[index].done = true
     myOutput()
     updateTodo() 
