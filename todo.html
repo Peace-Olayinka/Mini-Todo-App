@@ -17,9 +17,9 @@
     <section class="text-center py-2  ">
         <h2 id="welcome"></h2>
         <h4 class="text-primary">My Todo List</h4>
-        <input id="userInp" type="text" placeholder="Add a new To do" class="p-1 border  border-primary rounded-0">
-        <button id="btn1" onclick="addHere()" class=" text-bg-primary border border-primary rounded-0 p-1">Add</button>  
-        <button id="btn2" onclick="deleteAll()" class=" text-bg-danger border border-danger rounded-0 p-1">Delete All Todo</button> 
+        <input id="userInp" type="text" placeholder="Add a new To do" class="p-2 border  border-primary rounded-0 w-25">
+        <button id="btn1" onclick="addHere()" class=" text-bg-primary border border-primary rounded-0 p-2">Add</button>  
+        <button id="btn2" onclick="clearAll()" class=" text-bg-danger border border-danger rounded-0 p-2 fw-bold">Clear All Todo</button> 
     </section>
     <hr>
     <div>
@@ -28,15 +28,17 @@
                 <tr>
                     <th id="thd">S/N</th>
                     <th id="thd">Activities</th>
-                    <th id="thd" colspan="2">Actions</th>
+                    <th id="thd" colspan="3">Actions</th>
+                    <!-- <th id="thd">Action</th>  -->
                     <!-- <th id="thd">Action</th>  -->
                 </tr>
             </thead>
             <tbody  id="dispbox"> </tbody>
         </table>
     </div>
-
+    <hr>
     <div class="text-center">
+        <p id="showcount" class=" text-danger fw-bold"></p>
         <hr>
         <a href="index.html" class="text-decoration-none fw-bold  ">Log Out</a>
     </div>

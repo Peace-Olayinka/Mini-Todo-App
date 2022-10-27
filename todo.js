@@ -50,49 +50,64 @@ function addHere() {
 
 
 // to delete/clear all todo items
-function deleteAll() {
-    confirm('Are you sure you want to delete All Todo items?')
-    mySchedule.splice(0,mySchedule.length)
-    console.log(mySchedule)
-    dispbox.innerHTML = mySchedule
+function clearAll() {
+  let confirmation= confirm('Are you sure you want to delete All Todo items?')
+    if (confirmation) {
+        mySchedule.splice(0,mySchedule.length)
+        console.log(mySchedule)
+        myOutput() 
+        updateTodo()   
+    }
 }
 
-// to delete/clear a specific todo item
-function delTodo(index) {
-    confirm('Are you sure you want to remove this from your Todo?')
-    mySchedule.splice(index, 1)
-    console.log(mySchedule) 
-    myOutput()         
-}
-
-// to edit/replace a specific todo item
-function editTodo(index) {
-    var newTodo = prompt("Edit your todo here")
-    mySchedule.splice(index, 1, newTodo)
-    // Alternative to spice method:
-    // mySchedule[index] =newTodo
-    console.log(mySchedule) 
-    myOutput()         
-}
 function myOutput() {
     dispbox.innerHTML = ""
     for (let index = 0; index < mySchedule.length; index++) {
         let serialNum = index +1
         dispbox.innerHTML += `
-            <tr id="tee">
-            <td id="tee">${serialNum}</td>
-            <td id="tee"><h6>${mySchedule[index]}</h6></td>
-            <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
-            <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
-            </tr>
-            `
-    }   
+        <tr id="tee">
+        <td id="tee">${serialNum}</td>
+        <td id="tee"><h6>${mySchedule[index]}</h6></td>
+        <td id="tee"><button id="ashbtn" onclick="markTodo(${index})" >Mark as Done</button></td>
+        <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
+        <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
+        </tr>
+        `
+    } 
+    showCount()  
+}
+function showCount(){
+    document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
 }
 
-// function updateTodo() {
-//     let stringAllUsersTodo = JSON.stringify(mySchedule)
-//     localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
-// }  
+// to delete/clear a specific todo item
+function delTodo(index) {
+    let confirmation= confirm('Are you sure you want to remove this from your Todo?')
+    if (confirmation) {
+        mySchedule.splice(index, 1)
+        console.log(mySchedule) 
+        myOutput()  
+        updateTodo()          
+    }
+}
+
+// to edit/replace a specific todo item
+function editTodo(index) {
+    var newTodo = prompt("Edit your todo here")
+    if (newTodo) {
+        mySchedule.splice(index, 1, newTodo)
+        // Alternative to spice method:
+        // mySchedule[index] =newTodo
+        console.log(mySchedule) 
+        myOutput()  
+        updateTodo()         
+    }
+}
+
+function updateTodo() {
+    let stringAllUsersTodo = JSON.stringify(mySchedule)
+    localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
+}  
 
 // Alternatives to prompt method:
 // bootstrap modal can also be used to generate input from users just like prompt PaymentMethodChangeEvent, read more about it, 

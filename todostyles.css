@@ -1,11 +1,12 @@
 #btn1{
-    margin-left: -2.7em;
+    margin-left: -0.2em;
 }
 #yellowbtn{
     background-color: goldenrod;
-    border: 1px solid goldenrod;
+    border: none;
     font-weight: bold;
-    padding: auto;
+    padding: 1em;
+    width: 100%;
 }
 
 #redbtn{
@@ -13,8 +14,17 @@
     color: white;
     border: none;
     border: 1px solid brown;
-    font-weight: bold;
-    
+    font-weight: bold; 
+    padding: 1em;
+    width: 100%;
+}
+#ashbtn{
+    background-color: grey;
+    color: white;
+    border: none;
+    font-weight: bold; 
+    padding: 1em;
+    width: 100%; 
 }
 #tab{
     color: navy;
@@ -37,6 +47,7 @@
     border: 1px solid navy;
     border-collapse: separate;
     color: blue;
+    padding: 0.3em;
 }
 td{
     text-transform: capitalize;
