@@ -1,58 +1,53 @@
-var mySchedule = []
-var userTodo = []
+let mySchedule = []
+   
 
 let allUsers = JSON.parse(localStorage.getItem("localStringUsers")) 
+let activeUser = localStorage.getItem('activeUser')
+
 const getPreviousSchedule=()=>{ 
-    if (localStorage.localStringUsersTodo) { 
-        mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))  
-        console.log(mySchedule)
-        myOutput() 
-    }
-    for (let index = 0; index < allUsers.length; index++) {
-        myWelcome.innerHTML =`
-                <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
-                <h6> Add new activities and update your Scedule</h6>      
-            ` 
-            console.log(allUsers[index].firstname) 
-        
-    }
-            // let found = false
-            // for (let index = 0; index < allUsers.length; index++){
-            //     myUser = JSON.parse(localStorage.getItem("localStringMyUsers"))
-            //     if(userEmail===allUsers[index].email && userPassword===allUsers[index].password) {
-            //         found = true
-            //         break
-            //     }
-            // }
-            // if (found==true) {
-            //     myWelcome.innerHTML =`
-            //     <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
-            //     <h6> Add new activities and update your Scedule</h6>      
-            //  `
-            // }    
+    if (activeUser) {
+        allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
+        for (let index = 0; index < allUsers.length; index++) {
+            if (allUsers[index].email == activeUser) {
+                myWelcome.innerHTML =`
+                    <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
+                    <h6> Add new activities and update your Scedule</h6>      
+                ` 
+                console.log(allUsers[index].firstname, allUsers[index].lastname)
+
+                mySchedule=  JSON.parse(localStorage.getItem("localStringUsersTodo"))
+                myOutput() 
+
+                console.log(mySchedule)
+            } 
+        }
+    } 
 }
 
 // NOTE:
-// mySchedule.unshift(userTodo)
+// mySchedule.unshift(userTodo) opposite of push method, it add new item to an array from the start
 // console.log(mySchedule)
 //note: using reverse method after .push will re-arrange my array to make the last item come first (an alternative to unshift method) i.e:
 // mySchedule.push(userTodo)
 // mySchedule.reverse()
 
 function addHere() {
-    userTodo = userInp.value
+    let userTodo = userInp.value
     userInp.value= ""
     if (!userTodo) {
         alert('Todo field cannot be empty!')
         return
     }
-    mySchedule.push(userTodo)
-    // mySchedule.reverse()
-    console.log(mySchedule)
-    myOutput() 
-    let stringAllUsersTodo = JSON.stringify(mySchedule)
-    localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
+    else{
+        mySchedule.push(userTodo)
+        // mySchedule.reverse()
+        console.log(mySchedule)
+        myOutput() 
+        let stringAllUsersTodo = JSON.stringify(mySchedule)
+        localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
+    }   
 }
+
 
 // to delete/clear all todo items
 function deleteAll() {
@@ -79,7 +74,6 @@ function editTodo(index) {
     console.log(mySchedule) 
     myOutput()         
 }
-
 function myOutput() {
     dispbox.innerHTML = ""
     for (let index = 0; index < mySchedule.length; index++) {
@@ -98,14 +92,9 @@ function myOutput() {
 // function updateTodo() {
 //     let stringAllUsersTodo = JSON.stringify(mySchedule)
 //     localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
-// }
-// function name(params) {
-//     let allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
-//     welcome.innerText = ` Hi, ${allUsers[index].firstname} enter new Todo to update your schedule`
-//     ()
 // }  
 
 // Alternatives to prompt method:
 // bootstrap modal can also be used to generate input from users just like prompt PaymentMethodChangeEvent, read more about it, 
 
-// we can also use the origina input field to generate data to edit/replace the existing one, then update it (probably a button would do the update function)
+// we can also use the original input field to generate data to edit/replace the existing one, then update it (probably a button would do the update function)

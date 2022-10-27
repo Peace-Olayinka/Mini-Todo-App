@@ -15,7 +15,6 @@ const mySignUp=()=> {
         var myGender = myGen.value
         var myuserID =Math.round(Math.random()*1000000)
         var regDate = new Date()
-        var mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))
         
         let newUsers = {
             firstname: fName.value,
@@ -26,7 +25,7 @@ const mySignUp=()=> {
             DOB: doBirth.value,
             userIdNum: myuserID,
             registrationDate: regDate,
-            todoPage:mySchedule
+            mySchedule:[]
         }
 
         if (fName.value=='' || lName.value=='' || inpMail.value==''|| passW.value=='') {
