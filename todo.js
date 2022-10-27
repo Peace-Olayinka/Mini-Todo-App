@@ -43,9 +43,8 @@ function addHere() {
         // mySchedule.reverse()
         console.log(mySchedule)
         myOutput() 
-        let stringAllUsersTodo = JSON.stringify(mySchedule)
-        localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
-    }   
+        updateTodo()
+    } 
 }
 
 // to delete/clear all todo items
@@ -59,6 +58,40 @@ function clearAll() {
     }
 }
 
+// to delete/clear a specific todo item
+function delTodo(index) {
+    let confirmation= confirm('Are you sure you want to remove this from your Todo?')
+    if (confirmation) {
+        mySchedule.splice(index, 1)
+        console.log(mySchedule) 
+        myOutput()  
+        updateTodo()          
+    }
+}
+
+// to edit/replace a specific todo item
+function editTodo(index) {
+    var newTodo = prompt("Edit your todo here")
+    if (newTodo) {
+        mySchedule[index].name = newTodo
+        console.log(mySchedule) 
+        myOutput() 
+        updateTodo()         
+    }
+}
+
+function markTodo(index) {
+    alert('sure?')
+    mySchedule[index].done = true
+    myOutput()
+    updateTodo() 
+    console.log(mySchedule[index])          
+}
+
+function updateTodo() {
+    let stringAllUsersTodo = JSON.stringify(mySchedule)
+    localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
+} 
 
 function myOutput() {
     dispbox.innerHTML = ""
@@ -90,63 +123,22 @@ function myOutput() {
     } 
     showCount()  
 }
+
 function showCount(){
-    // document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
-    let counting
+    if (mySchedule.length<1) {
+        document.getElementById("showcount").innerHTML =`Your schedule is not updated, add new task to update your schedule`
+    }
+    let counting = 0
     for (let index = 0; index < mySchedule.length; index++) {
-       if (!mySchedule[index].done) {
-            counting+=1
+         if(!mySchedule[index].done) {
+            counting +=1
             document.getElementById("showcount").innerHTML =`You have  ${counting} upcoming activities in your schedule`
-       }  
+        }
+        if (counting<1) {
+            document.getElementById("showcount").innerHTML =`You have no upcoming activities in your schedule`
+        }
     }
-    // if (mySchedule.length<1) {
-    //     document.getElementById("showcount").innerHTML =`You have no upcoming activities in your schedule`
-    // }
-    // else if(mySchedule.length>0){
-    //     document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
-    // }
-    // if( mySchedule[index].done) {
-    //      let counting=mySchedule.length
-    //      counting = mySchedule.length-1
-    //      document.getElementById("showcount").innerHTML =`You have  ${counting} upcoming activities in your schedule`   
-    // }
-}
-
-// to delete/clear a specific todo item
-function delTodo(index) {
-    let confirmation= confirm('Are you sure you want to remove this from your Todo?')
-    if (confirmation) {
-        mySchedule.splice(index, 1)
-        console.log(mySchedule) 
-        myOutput()  
-        updateTodo()          
-    }
-}
-
-// to edit/replace a specific todo item
-function editTodo(index) {
-    var newTodo = prompt("Edit your todo here")
-    if (newTodo) {
-        mySchedule.splice(index, 1, newTodo)
-        // Alternative to splice method:
-        // mySchedule[index] =newTodo
-        console.log(mySchedule) 
-        myOutput() 
-        updateTodo()         
-    }
-}
-
-function updateTodo() {
-    let stringAllUsersTodo = JSON.stringify(mySchedule)
-    localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
-} 
-
-function markTodo(index) {
-    alert('sure?')
-    mySchedule[index].done = true
-    myOutput()
-    updateTodo() 
-    console.log(mySchedule[index])          
+       
 }
 
 // Alternatives to prompt method:
