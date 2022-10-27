@@ -26,6 +26,14 @@
     padding: 1em;
     width: 100%; 
 }
+#greenbtn{
+    background-color: green;
+    color: white;
+    border: none;
+    font-weight: bold; 
+    padding: 1em;
+    width: 100%; 
+}
 #tab{
     color: navy;
     margin: auto;

@@ -1,6 +1,5 @@
 let mySchedule = []
    
-
 let allUsers = JSON.parse(localStorage.getItem("localStringUsers")) 
 let activeUser = localStorage.getItem('activeUser')
 
@@ -15,7 +14,7 @@ const getPreviousSchedule=()=>{
                 ` 
                 console.log(allUsers[index].firstname, allUsers[index].lastname)
 
-                mySchedule=  JSON.parse(localStorage.getItem("localStringUsersTodo"))
+                mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))
                 myOutput() 
 
                 console.log(mySchedule)
@@ -32,9 +31,10 @@ const getPreviousSchedule=()=>{
 // mySchedule.reverse()
 
 function addHere() {
-    let userTodo = userInp.value
+    let userTodoName = userInp.value
+    let userTodo ={name: userTodoName, done:false}
     userInp.value= ""
-    if (!userTodo) {
+    if (!userTodoName) {
         alert('Todo field cannot be empty!')
         return
     }
@@ -48,7 +48,6 @@ function addHere() {
     }   
 }
 
-
 // to delete/clear all todo items
 function clearAll() {
   let confirmation= confirm('Are you sure you want to delete All Todo items?')
@@ -60,24 +59,57 @@ function clearAll() {
     }
 }
 
+
 function myOutput() {
     dispbox.innerHTML = ""
     for (let index = 0; index < mySchedule.length; index++) {
         let serialNum = index +1
-        dispbox.innerHTML += `
-        <tr id="tee">
-        <td id="tee">${serialNum}</td>
-        <td id="tee"><h6>${mySchedule[index]}</h6></td>
-        <td id="tee"><button id="ashbtn" onclick="markTodo(${index})" >Mark as Done</button></td>
-        <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
-        <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
-        </tr>
-        `
+        if (mySchedule[index].done) {
+            // i.e if we are done, value of done is true
+            dispbox.innerHTML += `
+            <tr id="tee">
+            <td id="tee">${serialNum}</td>
+            <td id="tee"><h6 style="color:green">${mySchedule[index].name}</h6></td>
+            <td id="tee"><button id="greenbtn" >Task Done</button></td>
+            <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
+            <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
+            </tr>
+            `   
+        }else{
+            // i.e we are not done,value of done is false
+            dispbox.innerHTML += `
+            <tr id="tee">
+            <td id="tee">${serialNum}</td>
+            <td id="tee"><h6 style="color:red">${mySchedule[index].name}</h6></td>
+            <td id="tee"><button id="ashbtn" onclick="markTodo(${index})" >Mark as Done</button></td>
+            <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
+            <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
+            </tr>
+            `   
+        }
     } 
     showCount()  
 }
 function showCount(){
-    document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
+    // document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
+    let counting
+    for (let index = 0; index < mySchedule.length; index++) {
+       if (!mySchedule[index].done) {
+            counting+=1
+            document.getElementById("showcount").innerHTML =`You have  ${counting} upcoming activities in your schedule`
+       }  
+    }
+    // if (mySchedule.length<1) {
+    //     document.getElementById("showcount").innerHTML =`You have no upcoming activities in your schedule`
+    // }
+    // else if(mySchedule.length>0){
+    //     document.getElementById("showcount").innerHTML =`You have  ${mySchedule.length} upcoming activities in your schedule`
+    // }
+    // if( mySchedule[index].done) {
+    //      let counting=mySchedule.length
+    //      counting = mySchedule.length-1
+    //      document.getElementById("showcount").innerHTML =`You have  ${counting} upcoming activities in your schedule`   
+    // }
 }
 
 // to delete/clear a specific todo item
@@ -96,10 +128,10 @@ function editTodo(index) {
     var newTodo = prompt("Edit your todo here")
     if (newTodo) {
         mySchedule.splice(index, 1, newTodo)
-        // Alternative to spice method:
+        // Alternative to splice method:
         // mySchedule[index] =newTodo
         console.log(mySchedule) 
-        myOutput()  
+        myOutput() 
         updateTodo()         
     }
 }
@@ -107,7 +139,15 @@ function editTodo(index) {
 function updateTodo() {
     let stringAllUsersTodo = JSON.stringify(mySchedule)
     localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
-}  
+} 
+
+function markTodo(index) {
+    alert('sure?')
+    mySchedule[index].done = true
+    myOutput()
+    updateTodo() 
+    console.log(mySchedule[index])          
+}
 
 // Alternatives to prompt method:
 // bootstrap modal can also be used to generate input from users just like prompt PaymentMethodChangeEvent, read more about it, 

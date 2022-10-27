@@ -62,7 +62,7 @@ const mySignUp=()=> {
             passW.value =''
            let stringAllUsers = JSON.stringify(allUsers)
            localStorage.setItem("localStringUsers", stringAllUsers)
-        //    localStorage.clear()
+    
            window.location.href= "loginPage.html"
         }       
 }
