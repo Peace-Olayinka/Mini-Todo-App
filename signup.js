@@ -25,7 +25,7 @@ const mySignUp=()=> {
             DOB: doBirth.value,
             userIdNum: myuserID,
             registrationDate: regDate,
-            mySchedule:[]
+            personalTodo:[]
         }
 
         if (fName.value=='' || lName.value=='' || inpMail.value==''|| passW.value=='') {

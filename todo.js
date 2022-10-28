@@ -2,8 +2,10 @@ let mySchedule = []
    
 let allUsers = JSON.parse(localStorage.getItem("localStringUsers")) 
 let activeUser = localStorage.getItem('activeUser')
+mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))
 
 const getPreviousSchedule=()=>{ 
+    myOutput() 
     if (activeUser) {
         allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
         for (let index = 0; index < allUsers.length; index++) {
@@ -13,14 +15,9 @@ const getPreviousSchedule=()=>{
                     <h6> Add new activities and update your Scedule</h6>      
                 ` 
                 console.log(allUsers[index].firstname, allUsers[index].lastname)
-
-                mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))
-                myOutput() 
-
-                console.log(mySchedule)
             } 
         }
-    } 
+    }
 }
 
 // NOTE:
@@ -132,13 +129,19 @@ function showCount(){
     for (let index = 0; index < mySchedule.length; index++) {
          if(!mySchedule[index].done) {
             counting +=1
-            document.getElementById("showcount").innerHTML =`You have  ${counting} upcoming activities in your schedule`
+            document.getElementById("showcount").innerHTML =`You have  ${counting} pending task in your schedule`
         }
         if (counting<1) {
-            document.getElementById("showcount").innerHTML =`You have no upcoming activities in your schedule`
+            document.getElementById("showcount").innerHTML =`<span class="text-success"> All tasks DONE. You have no pending task in your schedule </span>` 
+
         }
     }
        
+}
+
+const myLogOut =()=>{
+    localStorage.removeItem("activeUser")
+    window.location.href = "loginPage.html"
 }
 
 // Alternatives to prompt method:
