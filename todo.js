@@ -1,21 +1,31 @@
-let mySchedule = []
-   
 let allUsers = JSON.parse(localStorage.getItem("localStringUsers")) 
 let activeUser = localStorage.getItem('activeUser')
-mySchedule = JSON.parse(localStorage.getItem("localStringUsersTodo"))
+let userIndex = localStorage.getItem('userIndex')
+// let personalTodo = JSON.parse(localStorage.getItem("localStringUsersTodo"))
 
-const getPreviousSchedule=()=>{ 
-    myOutput() 
+const getPreviousSchedule=()=>{   
     if (activeUser) {
         allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
         for (let index = 0; index < allUsers.length; index++) {
             if (allUsers[index].email == activeUser) {
                 myWelcome.innerHTML =`
-                    <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
-                    <h6> Add new activities and update your Scedule</h6>      
+                <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
+                <h6> Add new activities and update your Scedule</h6>      
                 ` 
                 console.log(allUsers[index].firstname, allUsers[index].lastname)
+                console.log(index)
+                
             } 
+        }
+    }
+    if (userIndex) {
+        for (let index = 0; index < allUsers.length; index++) {
+            if (index==userIndex) {
+                myOutput() 
+                console.log(userIndex)
+                console.log(allUsers)
+            }
+            
         }
     }
 }
@@ -36,11 +46,14 @@ function addHere() {
         return
     }
     else{
-        mySchedule.push(userTodo)
-        // mySchedule.reverse()
-        console.log(mySchedule)
+        allUsers[userIndex].personalTodo.push(userTodo)
+        //allUsers[userIndex].personalTodo.reverse()
+        console.log(allUsers[userIndex].personalTodo)
         myOutput() 
-        updateTodo()
+        // updateTodo()
+        let stringAllUsers = JSON.stringify(allUsers)
+        localStorage.setItem("localStringUsers", stringAllUsers)
+  
     } 
 }
 
@@ -48,8 +61,8 @@ function addHere() {
 function clearAll() {
   let confirmation= confirm('Are you sure you want to delete All Todo items?')
     if (confirmation) {
-        mySchedule.splice(0,mySchedule.length)
-        console.log(mySchedule)
+        allUsers[userIndex].personalTodo.splice(0,allUsers[userIndex].personalTodo.length)
+        console.log(allUsers[userIndex].personalTodo)
         myOutput() 
         updateTodo()   
     }
@@ -59,8 +72,8 @@ function clearAll() {
 function delTodo(index) {
     let confirmation= confirm('Are you sure you want to remove this from your Todo?')
     if (confirmation) {
-        mySchedule.splice(index, 1)
-        console.log(mySchedule) 
+        allUsers[userIndex].personalTodo.splice(index, 1)
+        console.log(allUsers[userIndex].personalTodo) 
         myOutput()  
         updateTodo()          
     }
@@ -70,8 +83,8 @@ function delTodo(index) {
 function editTodo(index) {
     var newTodo = prompt("Edit your todo here")
     if (newTodo) {
-        mySchedule[index].name = newTodo
-        console.log(mySchedule) 
+        allUsers[userIndex].personalTodo[index].name = newTodo
+        console.log(allUsers[userIndex].personalTodo) 
         myOutput() 
         updateTodo()         
     }
@@ -79,27 +92,27 @@ function editTodo(index) {
 
 function markTodo(index) {
     alert('Are you sure ypu have completed this task and ready to mark as done?')
-    mySchedule[index].done = true
+    allUsers[userIndex].personalTodo[index].done = true
     myOutput()
     updateTodo() 
-    console.log(mySchedule[index])          
+    console.log(allUsers[userIndex].personalTodo[index])          
 }
 
 function updateTodo() {
-    let stringAllUsersTodo = JSON.stringify(mySchedule)
-    localStorage.setItem("localStringUsersTodo", stringAllUsersTodo)
+    let stringAllUsers = JSON.stringify(allUsers)
+    localStorage.setItem("localStringUsers", stringAllUsers)
 } 
 
 function myOutput() {
     dispbox.innerHTML = ""
-    for (let index = 0; index < mySchedule.length; index++) {
+    for (let index = 0; index < allUsers[userIndex].personalTodo.length; index++) {
         let serialNum = index +1
-        if (mySchedule[index].done) {
+        if (allUsers[userIndex].personalTodo[index].done) {
             // i.e if we are done, value of done is true
             dispbox.innerHTML += `
             <tr id="tee">
             <td id="tee">${serialNum}</td>
-            <td id="tee"><h6 style="color:green">${mySchedule[index].name}</h6></td>
+            <td id="tee"><h6 style="color:green">${ allUsers[userIndex].personalTodo[index].name}</h6></td>
             <td id="tee"><button id="greenbtn" >Task Done</button></td>
             <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
             <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
@@ -110,7 +123,7 @@ function myOutput() {
             dispbox.innerHTML += `
             <tr id="tee">
             <td id="tee">${serialNum}</td>
-            <td id="tee"><h6 style="color:red">${mySchedule[index].name}</h6></td>
+            <td id="tee"><h6 style="color:red">${ allUsers[userIndex].personalTodo[index].name}</h6></td>
             <td id="tee"><button id="ashbtn" onclick="markTodo(${index})" >Mark as Done</button></td>
             <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
             <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
@@ -122,12 +135,12 @@ function myOutput() {
 }
 
 function showCount(){
-    if (mySchedule.length<1) {
+    if (allUsers[userIndex].personalTodo.length<1) {
         document.getElementById("showcount").innerHTML =`Your schedule is not updated, add new task to update your schedule`
     }
     let counting = 0
-    for (let index = 0; index < mySchedule.length; index++) {
-         if(!mySchedule[index].done) {
+    for (let index = 0; index <allUsers[userIndex].personalTodo.length; index++) {
+         if(!allUsers[userIndex].personalTodo[index].done) {
             counting +=1
             document.getElementById("showcount").innerHTML =`You have  ${counting} pending task in your schedule`
         }
@@ -141,8 +154,12 @@ function showCount(){
 
 const myLogOut =()=>{
     localStorage.removeItem("activeUser")
+    localStorage.removeItem("userIndex")
     window.location.href = "loginPage.html"
 }
+
+
+
 
 // Alternatives to prompt method:
 // bootstrap modal can also be used to generate input from users just like prompt PaymentMethodChangeEvent, read more about it, 
