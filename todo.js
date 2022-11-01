@@ -10,7 +10,7 @@ const getPreviousSchedule=()=>{
             if (allUsers[index].email == activeUser) {
                 myWelcome.innerHTML =`
                 <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
-                <h6> Add new activities and update your Scedule</h6>      
+                <h6> Add new activities and update your Schedule</h6>      
                 ` 
                 console.log(allUsers[index].firstname, allUsers[index].lastname)
                 console.log(index)

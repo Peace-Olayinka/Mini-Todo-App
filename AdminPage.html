@@ -42,8 +42,9 @@
          <tbody id="disp"></tbody>
      </table>
     </section>
-    <p class="text-end pe-3">
-        <a href="index.html" class="text-decoration-none btn btn-success  rounded-circle">Home</a>
+    <hr>
+    <p class="text-center ">
+        <a href="index.html" class="text-decoration-none btn btn-success  rounded-5">Go back to home page</a>
     </p>
 
     <fieldset id="newInfo" >
@@ -56,11 +57,13 @@
         <input type="email" placeholder="Input your new E-mail" id="newMail" class="hello p-2 rounded-3">
         <label for="">Password</label>
         <input type="password" placeholder="Input your new Password" id="newPassW" class="hello p-2 rounded-3">
-         <button onclick="saveNewInfo()" class=" btn rounded-5 btn-primary">Save Changes</button>
+        <button onclick="saveNewInfo()" class=" btn rounded-5 btn-primary">Save Changes</button>
     </fieldset>
    
    
     <script>
+        let allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
+    
         const getPreviousDetails=()=>{
             if (localStorage.localStringUsers) {
                 allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
@@ -68,7 +71,7 @@
                 resp() 
             }
         }
-        var allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
+        
         const resp=()=>{
             disp.innerHTML =''
             for (let index = 0; index < allUsers.length; index++) {
@@ -86,24 +89,21 @@
                     <td><button id="dashbdbtn" onclick="userdashbd(${index})">Access DashBoard</button></td>
                     <td><button id="editbtn" onclick="editInfo(${index})">Edit User Info</button></td>
                     <td><button id="delbtn" onclick="deleteInfo(${index})">Delete User Info</button></td>
-                 </tr>
-                ` 
+                    </tr>
+                    ` 
             }
         }
-
-        const myLogin=()=>{
-            var userEmail = inpMail.value
-            var userPassword = passW.value
-            var allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
-            inpMail.value=""
-            passW.value=""
-            resp()
+            
+        function updateTodo() {
+            let stringAllUsers = JSON.stringify(allUsers)
+            localStorage.setItem("localStringUsers", stringAllUsers)
         }
 
         const deleteInfo=(index)=>{
-            confirm('Delete this User info?')
-            allUsers.splice(index, 1)
-            resp()  
+        confirm('Delete this User info?')
+        allUsers.splice(index, 1)
+        resp()  
+        updateTodo()
         }
 
         const editInfo=(index)=>{
@@ -114,6 +114,7 @@
             newMail.value  = allUsers[index].email
             newpassW.value = allUsers[index].password  
             resp()
+            updateTodo()
         }
 
         const saveNewInfo=()=>{
@@ -124,8 +125,8 @@
                 allUsers[index].email = newMail.value 
                 allUsers[index].password = newpassW.value
                 resp()
+                updateTodo()
                 editedInfo.style.visibility = 'hidden'  
-                // JSON.stringify(localStorage.setItem("localStringUsers", allUsers))
             }
         }
 
@@ -134,26 +135,8 @@
             window.location.href ='todo.html'
         }
        
-        // const personalTodo=()=>{
-        //     if (localStorage.localStringUsersTodo) {
-        //         allUsers = JSON.parse(localStorage.getItem("localStringUsersTodo"))
-        //         console.log(mySchedule)
        
-        //         dispbox.innerHTML = ""
-        //         for (let index = 0; index < mySchedule.length; index++) {
-        //             dispbox.innerHTML += `
-        //             <tr id="tee">
-        //              <td id="tee">${index}</td>
-        //             <td id="tee"><h6>${mySchedule[index]}</h6></td>
-        //             <td id="tee"><button id="yellowbtn"onclick="editTodo(${index})" >Edit</button></td>
-        //             <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
-        //             </tr>
-        //          `
-        //         }          
-        //     }
-    
-        // }
-</script>
+    </script>
  
     
   
