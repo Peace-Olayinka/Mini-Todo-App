@@ -11,20 +11,20 @@
 <body class="bg-info bg-opacity-25" onload="getPreviousSchedule()">
     <script src="todo.js"></script>
 
-    <div id="myWelcome" class="text-center py-3 text-bg-primary bg-opacity-50" style="position: sticky; top: 0;"></div>
-    <div class=" container" style="height: 100vh;">
+    <div id="myWelcome" class="text-center py-3 text-bg-primary bg-opacity-50" style="position: sticky;"></div>
+    <div class=" container">
+        <!-- input area -->
         <div class="row my-2">
-            <!-- <h2 id="welcome"></h2> -->
             <div class="col-xs-6 col-lg-9">
-                <input id="userInp" type="text" placeholder="Enter new task here" class=" border  border-primary form-control ">
+                <input id="userInp" type="text" placeholder="Enter new Todo here" class=" border border-primary form-control ">
             </div>
-            <div class="col-xs-5 col-lg-3  my-1">
+            <div class="col-xs-5 col-lg-3 my-1">
                 <button id="btn1" onclick="addHere()" class="btn btn-primary rounded-2 fw-bold  ">Add</button>  
-                <button id="btn2" onclick="clearAll()" class="btn btn-danger rounded-2  fw-bold ">Clear All</button> 
+                <button id="btn2" onclick="clearAll()" class="btn btn-danger rounded-2  fw-bold mx-2 ">Clear All</button> 
                 <button onclick="myLogOut()" class=" btn btn-transparent btn-outline-secondary fw-bold">Log Out</button>
             </div>
         </div>
-
+        <!-- body area-->
         <div class="row my-5 py-3  px-3 shadow">
             <div class="col-5 fs-5 fw-bold text-primary">Todo List:</div>
             <div id="showcount" class=" col-7 text-danger text-center fw-bold"></div>

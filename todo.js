@@ -110,11 +110,11 @@ function myOutput() {
             // i.e if we are done, value of done is true
             dispbox.innerHTML += `
             <div class="row p-2 my-3 text-success shadow">
-                <div class="col-8">${ allUsers[userIndex].personalTodo[index].name}</div>
-                <div class="col-4">
-                    <button  class="btn btn-success m-1"> Done</button>
-                    <button  onclick="editTodo(${index})" class="btn btn-warning m-1">Edit</button>
-                    <button  onclick="delTodo(${index})"  class="btn btn-danger m-1">Delete</button>
+                <div class=" col-xs-10 col-lg-8">${ allUsers[userIndex].personalTodo[index].name}</div>
+                <div class="col-xs-10 col-lg-4 my-2 text-center">
+                    <button  class="btn btn-success fw-bold"> Done</button>
+                    <button  onclick="editTodo(${index})" class="btn btn-warning mx-1 fw-bold">Edit</button>
+                    <button  onclick="delTodo(${index})"  class="btn btn-danger fw-bold">Delete</button>
                 </div>
             </div>
            
@@ -124,11 +124,11 @@ function myOutput() {
             // i.e we are not done,value of done is false
             dispbox.innerHTML += `
             <div class="row  p-2 my-3 text-danger shadow">
-                <div class="col-8">${ allUsers[userIndex].personalTodo[index].name}</div>
-                <div class="col-4">
-                    <button onclick="markTodo(${index})" class="btn btn-secondary m-1 " >Mark</button>
-                    <button onclick="editTodo(${index})" class="btn btn-warning m-1" >Edit</button>
-                    <button onclick="delTodo(${index})"  class="btn btn-danger m-1">Delete</button>
+                <div class="col-xs-10 col-lg-8">${ allUsers[userIndex].personalTodo[index].name}</div>
+                <div class="col-xs-10 col-lg-4 my-2 text-center">
+                    <button onclick="markTodo(${index})" class="btn btn-secondary fw-bold">Mark</button>
+                    <button onclick="editTodo(${index})" class="btn btn-warning mx-1 fw-bold">Edit</button>
+                    <button onclick="delTodo(${index})"  class="btn btn-danger fw-bold">Delete</button>
                 </div>
             </div>
             `      
