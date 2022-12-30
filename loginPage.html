@@ -11,7 +11,7 @@
      
 </head>
 <body class="bg-light">
-    <div id="mybox"   class="mt-5 px-3 py-3 rounded-4 bg-white ">
+    <div id="mybox"   class=" px-3 py-5 rounded-4 bg-white ">
         <h3 class="text-center">Welcome,</h3>
         <h6 class="text-center text-primary">Enter your details to login </h6>
         <input type="email" placeholder="Enter Your Email"  id="inpMail"  class="p-2 rounded-3">
@@ -37,7 +37,7 @@
             for (let index = 0; index < allUsers.length; index++){
                 if(userEmail===allUsers[index].email && userPassword===allUsers[index].password) {
                     found = true
-                    userIndex = index
+                    userIndex = index 
                     break
                 }
             }
@@ -50,10 +50,6 @@
                 alert("Incorrect email or password! Try again.")
             } 
         }
-
-        
-       var allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
-        console.log(allUsers)
        
     </script>
   

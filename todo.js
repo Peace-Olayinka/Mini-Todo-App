@@ -1,7 +1,6 @@
 let allUsers = JSON.parse(localStorage.getItem("localStringUsers")) 
 let activeUser = localStorage.getItem('activeUser')
 let userIndex = localStorage.getItem('userIndex')
-// let personalTodo = JSON.parse(localStorage.getItem("localStringUsersTodo"))
 
 const getPreviousSchedule=()=>{   
     if (activeUser) {
@@ -10,15 +9,15 @@ const getPreviousSchedule=()=>{
             if (allUsers[index].email == activeUser) {
                 myWelcome.innerHTML =`
                 <h3> Welcome, ${allUsers[index].firstname} ${allUsers[index].lastname}</h3>
-                <h6> Add new activities and update your Schedule</h6>      
+                <h6> Add new activities and update your Shcedule</h6>      
                 ` 
                 console.log(allUsers[index].firstname, allUsers[index].lastname)
                 console.log(index)
-                
             } 
         }
     }
     if (userIndex) {
+        allUsers = JSON.parse(localStorage.getItem("localStringUsers"))
         for (let index = 0; index < allUsers.length; index++) {
             if (index==userIndex) {
                 myOutput() 
@@ -91,7 +90,7 @@ function editTodo(index) {
 }
 
 function markTodo(index) {
-    alert('Are you sure ypu have completed this task and ready to mark as done?')
+    alert('Are you sure you have completed this task and ready to mark as done?')
     allUsers[userIndex].personalTodo[index].done = true
     myOutput()
     updateTodo() 
@@ -110,25 +109,29 @@ function myOutput() {
         if (allUsers[userIndex].personalTodo[index].done) {
             // i.e if we are done, value of done is true
             dispbox.innerHTML += `
-            <tr id="tee">
-            <td id="tee">${serialNum}</td>
-            <td id="tee"><h6 style="color:green">${ allUsers[userIndex].personalTodo[index].name}</h6></td>
-            <td id="tee"><button id="greenbtn" >Task Done</button></td>
-            <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
-            <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
-            </tr>
-            `   
-        }else{
+            <div class="row p-2 my-3 text-success shadow">
+                <div class="col-8">${ allUsers[userIndex].personalTodo[index].name}</div>
+                <div class="col-4">
+                    <button  class="btn btn-success m-1"> Done</button>
+                    <button  onclick="editTodo(${index})" class="btn btn-warning m-1">Edit</button>
+                    <button  onclick="delTodo(${index})"  class="btn btn-danger m-1">Delete</button>
+                </div>
+            </div>
+           
+            `     
+        }
+        else{
             // i.e we are not done,value of done is false
             dispbox.innerHTML += `
-            <tr id="tee">
-            <td id="tee">${serialNum}</td>
-            <td id="tee"><h6 style="color:red">${ allUsers[userIndex].personalTodo[index].name}</h6></td>
-            <td id="tee"><button id="ashbtn" onclick="markTodo(${index})" >Mark as Done</button></td>
-            <td id="tee"><button id="yellowbtn" onclick="editTodo(${index})" >Edit</button></td>
-            <td id="tee"><button id="redbtn" onclick="delTodo(${index})">Delete</button></td>
-            </tr>
-            `   
+            <div class="row  p-2 my-3 text-danger shadow">
+                <div class="col-8">${ allUsers[userIndex].personalTodo[index].name}</div>
+                <div class="col-4">
+                    <button onclick="markTodo(${index})" class="btn btn-secondary m-1 " >Mark</button>
+                    <button onclick="editTodo(${index})" class="btn btn-warning m-1" >Edit</button>
+                    <button onclick="delTodo(${index})"  class="btn btn-danger m-1">Delete</button>
+                </div>
+            </div>
+            `      
         }
     } 
     showCount()  
@@ -142,11 +145,10 @@ function showCount(){
     for (let index = 0; index <allUsers[userIndex].personalTodo.length; index++) {
          if(!allUsers[userIndex].personalTodo[index].done) {
             counting +=1
-            document.getElementById("showcount").innerHTML =`You have  ${counting} pending task in your schedule`
+            document.getElementById("showcount").innerHTML =`You have  ${counting} pending task(s) in your schedule`
         }
         if (counting<1) {
-            document.getElementById("showcount").innerHTML =`<span class="text-success"> All tasks DONE. You have no pending task in your schedule </span>` 
-
+            document.getElementById("showcount").innerHTML =`<span class="text-success"> All tasks DONE!. You have no pending task in your schedule </span>` 
         }
     }
        
@@ -157,7 +159,6 @@ const myLogOut =()=>{
     localStorage.removeItem("userIndex")
     window.location.href = "loginPage.html"
 }
-
 
 
 
